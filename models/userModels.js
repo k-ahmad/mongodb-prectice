@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     email: {
@@ -13,44 +13,60 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
       unique: true,
-      lowercase: true
+      lowercase: true,
     },
 
     password: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     phone: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     address: {
       type: String,
       required: true,
-      trim: true
-    }
+      trim: true,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const UserSchema = mongoose.model("User", userSchema);
 
 const User = {
-
+  // CREATE
   register: (userData) => {
     return UserSchema.create(userData);
   },
-  getUsers: (userData) => {
-     return UserSchema.find(userData);
+
+  // READ ALL
+  getUsers: () => {
+    return UserSchema.find();
   },
+
+  // READ ONE
   getUserById: (id) => {
     return UserSchema.findById(id);
   },
-};
 
+  // UPDATE
+  updateUser: (id, data) => {
+    return UserSchema.findByIdAndUpdate(id, data, {
+      new: true,
+      runValidators: true,
+    });
+  },
+
+  // DELETE
+  deleteUser: (id) => {
+    return UserSchema.findByIdAndDelete(id);
+  },
+};
 
 module.exports = User;
