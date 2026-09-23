@@ -43,8 +43,14 @@ const User = {
 
   register: (userData) => {
     return UserSchema.create(userData);
-  }
-
+  },
+  getUsers: (userData) => {
+     return UserSchema.find(userData);
+  },
+  getUserById: (id) => {
+    return UserSchema.findById(id);
+  },
 };
+
 
 module.exports = User;

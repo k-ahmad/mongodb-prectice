@@ -26,6 +26,47 @@ const registerUser = async (req, res) => {
   }
 };
 
+
+const getUsers = async (req, res) => {
+  try {
+    const users = await userModel.getUsers();
+
+    res.status(200).json({
+      success: true,
+      message: "Users fetched successfully",
+      data: users
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch users",
+      error: error.message
+    });
+  }
+};
+
+
+const getUserById = async (req, res) => {
+  try {
+    const user = await userModel.getUserById(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "User fetched successfully",
+      data: user
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch user",
+      error: error.message
+    });
+  }
+};
+
+
 module.exports = {
-  registerUser
+  registerUser,
+  getUsers,
+  getUserById
 };
